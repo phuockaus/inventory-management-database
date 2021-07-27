@@ -11,16 +11,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/getProducts', (req, res) => {
-  model.getProduct()
-  .then(response => {
-    res.status(200).send(response);
-  })
-  .catch(error => {
-    res.status(500).send(error);
-  });
-})
-
 app.get('/getStocks', (req, res) => {
   model.getStock()
   .then(response => {
@@ -31,8 +21,8 @@ app.get('/getStocks', (req, res) => {
   });
 })
 
-app.post('/users', (req, res) => {
-  merchant_model.createUser(req.body)
+app.get('/login', (req, res) => {
+  model.getUser()
   .then(response => {
     res.status(200).send(response);
   })

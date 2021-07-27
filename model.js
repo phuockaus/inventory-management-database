@@ -9,11 +9,12 @@ const pool = new Pool({
 
 const getUser = () => {
     return new Promise(function(resolve, reject) {
-      pool.query('SELECT * FROM public.\"USER\";', (error, results) => {
+      pool.query('SELECT username, password FROM public.\"USER\";',
+      (error, results) => {
         if (error) {
           reject(error)
         }
-        resolve(results.rows);
+        resolve(results.rows);       
       })
     }) 
   }
@@ -28,16 +29,4 @@ const getUser = () => {
       })
     }) 
   }
-
-const createUser = (body) => {
-  return new Promise(function(resolve, reject) {
-    const { username, password } = body
-    pool.query('INSERT INTO public.\"USER\" (username, password) VALUES ($1, $2) RETURNING *', [username, password], (error, results) => {
-      if (error) {
-        reject(error)
-      }
-      resolve(`A new user has been added: ${results.rows[0]}`)
-    })
-  })
-}
-module.exports = {getUser, getStock, createUser};
+module.exports = {getUser, getStock};
