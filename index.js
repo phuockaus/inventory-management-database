@@ -30,6 +30,15 @@ app.get('/login', (req, res) => {
     res.status(500).send(error);
   })
 })
+app.post('/port', (req, res) => {
+  model.importProduct(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
