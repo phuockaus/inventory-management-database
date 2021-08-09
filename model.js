@@ -42,4 +42,17 @@ const getUser = () => {
       })
     })
   }
-module.exports = {getUser, getStock, importProduct};
+  const exportProduct = (body) => {
+    return new Promise(function(resolve, reject) {
+      const { product_id, quantity }  = body;
+      // UPDATE public.\"STOCK\" SET available = $1 WHERE product_id = $2;
+      pool.query('UPDATE public.\"STOCK\" SET available = available - $1 WHERE product_id = $2;', [quantity, product_id], (error, results) => {
+        if (error) {
+          reject(error)
+        }
+        // resolve(`A new import has been added: ${results.rows[0]}`)
+        resolve('Your inventory has been updated!');
+      })
+    })
+  }
+module.exports = {getUser, getStock, importProduct, exportProduct};
